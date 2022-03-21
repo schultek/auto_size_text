@@ -614,8 +614,12 @@ class _AutoSizeTextState extends State<AutoSizeText> {
       locale: widget.locale,
       strutStyle: widget.strutStyle,
     );
-
-    textPainter.layout(maxWidth: constraints.maxWidth);
+    
+    if (widget._isSelectableText) {
+      textPainter.layout(maxWidth: constraints.maxWidth - widget.cursorWidth - 1.0);
+    } else {
+       textPainter.layout(maxWidth: constraints.maxWidth);
+    }
 
     return !(textPainter.didExceedMaxLines ||
         textPainter.height > constraints.maxHeight ||
